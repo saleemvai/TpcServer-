@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>XG40 • Web3 Neo‑Shine Crypto</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<style>
+  /* ------------------ Theme ------------------ */
+  :root{
+    --bg:#05070a; --bg-2:#0b0f15; --ink:#eaf2ff; --muted:#a3b1c7;
+    --primary:#00ff88; --secondary:#00a2ff; --accent:#ff2d95;
+    --glass:rgba(255,255,255,.06); --border:rgba(255,255,255,.12);
+    --grad: linear-gradient(90deg,#00ff88,#00a2ff 60%,#ff2d95);
+    --shadow-neon: 0 10px 40px rgba(0,255,136,.25), 0 2px 8px rgba(0,162,255,.18);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;}
+  body{
+    margin:0; color:var(--ink); background:var(--bg);
+    font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    line-height:1.6; overflow-x:hidden;
+  }
+  a{color:inherit; text-decoration:none}
+  .container{max-width:1200px; margin:0 auto; padding:0 24px}
+
+  /* ------------------ Full-bleed cosmic canvas ------------------ */
+  #cosmos{position:fixed; inset:0; z-index:-2; display:block}
+  .cosmic-vignette{position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background:
+      radial-gradient(1200px 800px at 10% -10%, rgba(0,255,136,.18), transparent 60%),
+      radial-gradient(1200px 800px at 110% 10%, rgba(0,162,255,.16), transparent 60%),
+      radial-gradient(1200px 800px at 50% 120%, rgba(255,45,149,.12), transparent 60%);
+    mix-blend:screen; opacity:.9;
+  }
+
+  /* ------------------ Navbar ------------------ */
+  .navbar{position:fixed; inset:0 auto auto 0; right:0; z-index:1000; transition:.35s ease}
+  .nav-wrap{display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:14px 24px; backdrop-filter: blur(12px);
+    background:linear-gradient(180deg, rgba(7,9,12,.8), rgba(7,9,12,.45));
+    border-bottom:1px solid var(--border)}
+  .brand{display:flex; align-items:center; gap:10px; font-family:Sora,monospace; letter-spacing:.3px}
+  .logo-coin{width:32px; height:32px; border-radius:50%; background:conic-gradient(from 180deg at 50% 50%, #00ff88,#00a2ff,#ff2d95,#00ff88);
+    box-shadow:0 0 0 2px rgba(255,255,255,.08) inset, 0 0 30px rgba(0,255,136,.25)}
+  .brand span{font-weight:800; font-size:1.15rem; color:var(--primary)}
+  .menu{display:flex; gap:26px; list-style:none}
+  .menu a{color:#dfe7f5; font-weight:600; opacity:.95; position:relative}
+  .menu a:after{content:""; position:absolute; left:0; bottom:-8px; height:2px; width:0; background:var(--primary); transition:.3s}
+  .menu a:hover:after{width:100%}
+  .btn{display:inline-flex; align-items:center; gap:10px; padding:10px 16px; border-radius:999px; font-weight:800;
+    border:1px solid var(--border); transition:.25s}
+  .btn.primary{background:var(--grad); color:#00110a; box-shadow:var(--shadow-neon)}
+  .btn.ghost{background:rgba(255,255,255,.04)}
+  .btn:hover{transform:translateY(-2px)}
+  .hamburger{display:none; flex-direction:column; gap:5px; cursor:pointer}
+  .hamburger span{width:26px; height:2px; background:#e8f0ff}
+  .nav-small{transform:translateY(-8px); background:rgba(7,9,12,.72)}
+
+  /* ------------------ Hero ------------------ */
+  header.hero{padding-top:110px; padding-bottom:60px}
+  .h-title{font-family:Sora,monospace; font-size:clamp(40px,6vw,74px); line-height:1.05; margin:16px 0}
+  .shine{background:linear-gradient(92deg,#fff,#d9fff1,#dff0ff,#ffe0f2); -webkit-background-clip:text; -webkit-text-fill-color:transparent}
+  .gradient-text{background:linear-gradient(92deg,#00ff88,#00a2ff,#ff2d95); -webkit-background-clip:text; -webkit-text-fill-color:transparent}
+  .h-sub{font-size:1.1rem; color:#cbd5e1; max-width:58ch}
+  .pill{padding:14px 22px; border-radius:999px; font-weight:800; border:1px solid var(--border);
+    background:linear-gradient(135deg, rgba(0,255,136,.2), rgba(0,162,255,.15)); backdrop-filter: blur(6px)}
+  .pill.primary{background:var(--grad); color:#00110a; box-shadow:var(--shadow-neon)}
+  .h-badges{display:flex; gap:14px; flex-wrap:wrap; margin-top:14px}
+  .badge{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; border:1px dashed rgba(255,255,255,.22); background:rgba(255,255,255,.03); color:#d9e1ee}
+
+  .hero .grid{display:grid; grid-template-columns:1.15fr .85fr; gap:28px; align-items:center}
+  .hero-card{border:1px solid var(--border); background:radial-gradient(120% 120% at 10% 10%, rgba(0,255,136,.12), rgba(0,162,255,.06) 50%, rgba(255,45,149,.08)); border-radius:22px; padding:22px; box-shadow:0 14px 60px rgba(0,0,0,.4)}
+
+  /* ------------------ Accordion Sections ------------------ */
+  .accordion{max-width:1100px; margin:0 auto 26px; border:1px solid var(--border); border-radius:16px; background:rgba(255,255,255,.03); overflow:hidden}
+  .acc-head{display:flex; align-items:center; justify-content:space-between; gap:12px; width:100%; padding:18px 20px; cursor:pointer;
+    background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border-bottom:1px solid rgba(255,255,255,.08)}
+  .acc-head h2{margin:0; font-family:Sora,monospace; font-size:clamp(24px,3.2vw,38px)}
+  .acc-body{max-height:0; overflow:hidden; transition:max-height .5s ease, opacity .35s ease; opacity:0}
+  .accordion.open .acc-body{max-height:3000px; opacity:1}
+  .acc-inner{padding:20px 20px 24px}
+  .section-sub{color:#b8c2d6; max-width:70ch}
+
+  /* Cards, features, metrics */
+  .features-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; margin-top:22px}
+  .feature{position:relative; padding:22px; border:1px solid var(--border); border-radius:18px; background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02))}
+  .f-icon{font-size:28px; width:48px; height:48px; display:grid; place-items:center; border-radius:14px; background:linear-gradient(135deg, rgba(0,255,136,.15), rgba(0,162,255,.12)); border:1px solid var(--border); margin-bottom:10px}
+  .tag{display:inline-block; font-size:.75rem; padding:4px 10px; border-radius:999px; border:1px solid var(--border); color:#cfe7ff}
+  .cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; margin-top:22px}
+  .card{padding:22px; border:1px solid var(--border); border-radius:18px; background:var(--glass)}
+  .meter{height:10px; border-radius:999px; background:#0a0f14; border:1px solid var(--border); overflow:hidden}
+  .meter>span{display:block; height:100%; background:linear-gradient(90deg,#00ff88,#00a2ff); box-shadow:inset 0 0 15px rgba(0,0,0,.4)}
+  .timeline{position:relative; margin-top:26px}
+  .timeline:before{content:""; position:absolute; left:20px; top:0; bottom:0; width:2px; background:linear-gradient(#00ff88,#00a2ff)}
+  .tl-item{position:relative; padding-left:60px; margin:22px 0}
+  .tl-dot{position:absolute; left:12px; top:4px; width:16px; height:16px; border-radius:50%; background:conic-gradient(from 180deg at 50% 50%, #00ff88,#00a2ff,#ff2d95,#00ff88); box-shadow:0 0 0 3px rgba(255,255,255,.08)}
+
+  /* Footer */
+  footer{border-top:1px solid var(--border); background:rgba(7,9,12,.6)}
+  .foot{display:grid; grid-template-columns:1fr 1fr; gap:16px; padding:30px 0}
+  .socials{display:flex; gap:12px}
+  .socials a{width:40px; height:40px; display:grid; place-items:center; border-radius:12px; border:1px solid var(--border); background:rgba(255,255,255,.03)}
+
+  /* Utilities */
+  .row{display:grid; grid-template-columns:1.15fr .85fr; gap:28px; align-items:center}
+  .spacer{height:24px}
+
+  /* Responsive */
+  @media (max-width:980px){
+    .menu{display:none}
+    .hamburger{display:flex}
+    .row, .hero .grid{grid-template-columns:1fr}
+    .foot{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+  <canvas id="cosmos"></canvas>
+  <div class="cosmic-vignette" aria-hidden="true"></div>
+
+  <!-- ================== NAV ================== -->
+  <nav class="navbar">
+    <div class="container nav-wrap">
+      <a class="brand" href="#home" aria-label="XG40 Home">
+        <span class="logo-coin"></span>
+        <span>XG40</span>
+      </a>
+      <ul class="menu">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#tokenomics">Tokenomics</a></li>
+        <li><a href="#roadmap">Roadmap</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <div class="cta-mini">
+        <a class="btn ghost" href="#docs"><i class="fa-solid fa-book"></i> Docs</a>
+        <a class="btn primary" href="#get"><i class="fa-solid fa-rocket"></i> Get XG40</a>
+        <div class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ================== HERO ================== -->
+  <header class="hero container" id="home">
+    <div class="grid row">
+      <div>
+        <span class="badge" style="font-weight:800"><i class="fa-solid fa-bolt" style="color:var(--primary)"></i> Next‑Gen Web3 Currency</span>
+        <h1 class="h-title"><span class="shine">XG40</span><br/><span class="gradient-text">Faster • Cheaper • Quantum‑Secure</span></h1>
+        <p class="h-sub">Experience lightning settlements, ultra‑low fees, and a security model designed for the post‑quantum world. Built for builders, traders, and the next billion users.</p>
+        <div style="display:flex; gap:12px; margin:24px 0 10px">
+          <a class="pill primary" href="#get"><i class="fa-solid fa-wallet"></i> Launch App</a>
+          <a class="pill" href="#video"><i class="fa-solid fa-play"></i> Watch Demo</a>
+          <button id="expandAll" class="pill" title="Expand all sections"><i class="fa-solid fa-square-plus"></i> Expand All</button>
+        </div>
+        <div class="h-badges">
+          <span class="badge"><i class="fa-solid fa-shield-halved" style="color:var(--secondary)"></i> Audited</span>
+          <span class="badge"><i class="fa-solid fa-leaf" style="color:var(--secondary)"></i> Eco‑Friendly</span>
+          <span class="badge"><i class="fa-solid fa-mobile-screen" style="color:var(--secondary)"></i> Mobile‑Ready</span>
+          <span class="badge"><i class="fa-solid fa-globe" style="color:var(--secondary)"></i> Global 24/7</span>
+        </div>
+      </div>
+      <div>
+        <div class="hero-card" aria-label="Market widget">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px"><strong>Market Snapshot</strong><span style="color:#9fb3cc">Updated just now</span></div>
+          <div style="display:flex; gap:18px; overflow:auto; padding:10px 0" id="ticker">
+            <div class="badge" style="white-space:nowrap"><i class="fa-brands fa-bitcoin"></i> <b>BTC</b> <span>$68,420</span> <span style="font-weight:800; color:#00ff88">+1.6%</span></div>
+            <div class="badge" style="white-space:nowrap"><i class="fa-brands fa-ethereum"></i> <b>ETH</b> <span>$3,240</span> <span style="font-weight:800; color:#00ff88">+0.9%</span></div>
+            <div class="badge" style="white-space:nowrap"><i class="fa-solid fa-coins"></i> <b>XG40</b> <span>$0.024</span> <span style="font-weight:800; color:#00ff88">+12.5%</span></div>
+            <div class="badge" style="white-space:nowrap"><i class="fa-solid fa-circle-nodes"></i> <b>SOL</b> <span>$178.20</span> <span style="font-weight:800; color:#ff6b6b">-0.4%</span></div>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:16px">
+            <div class="card"><div style="font-family:Sora,monospace; font-size:1.6rem; color:var(--primary)" class="n" data-count="2400000">$0</div><div style="color:#b6c2d4">Market Cap</div></div>
+            <div class="card"><div style="font-family:Sora,monospace; font-size:1.6rem; color:var(--primary)" class="n" data-count="15000">0</div><div style="color:#b6c2d4">Holders</div></div>
+            <div class="card"><div style="font-family:Sora,monospace; font-size:1.6rem; color:var(--primary)" class="n" data-count="0.001">0</div><div style="color:#b6c2d4">Avg. Fee (XG)</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================== ACCORDION: ABOUT ================== -->
+  <section id="about" class="container">
+    <div class="accordion" data-acc>
+      <button class="acc-head" type="button"><h2>About XG40</h2><i class="fa-solid fa-chevron-down"></i></button>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p class="section-sub">XG40 is a high‑throughput Layer‑1 with a novel consensus that blends Proof‑of‑Stake and time‑sliced parallelization. It’s engineered for micro‑fees, carbon‑light operation, and a developer‑first experience.</p>
+          <div class="features-grid" style="margin-top:18px">
+            <div class="feature"><div class="f-icon"><i class="fa-solid fa-gauge-high"></i></div><h3>100k+ TPS</h3><p>Parallelized execution with optimistic pipelines enables sustained throughput for real‑world apps.</p></div>
+            <div class="feature"><div class="f-icon"><i class="fa-solid fa-lock"></i></div><h3>Quantum‑Resistant</h3><p>Hybrid crypto primed for the post‑quantum era to keep assets safe for decades.</p></div>
+            <div class="feature"><div class="f-icon"><i class="fa-solid fa-money-bill-wave"></i></div><h3>Near‑Zero Fees</h3><p>Sub‑cent transactions keep DeFi, gaming, and payments affordable.</p></div>
+            <div class="feature"><div class="f-icon"><i class="fa-solid fa-plug-circle-bolt"></i></div><h3>EVM + WASM</h3><p>Bring your Solidity or Rust—SDKs and tooling for both worlds.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== ACCORDION: FEATURES ================== -->
+  <section id="features" class="container">
+    <div class="accordion" data-acc>
+      <button class="acc-head" type="button"><h2>Powerful Features</h2><i class="fa-solid fa-chevron-down"></i></button>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p class="section-sub">Everything you expect from a premium Bitcoin‑style landing—elevated with Web3 shine.</p>
+          <div class="features-grid" id="featureGrid">
+            <div class="feature"><span class="tag">Core</span><div class="f-icon"><i class="fa-solid fa-tachograph-digital"></i></div><h3>Instant Finality</h3><p>Sub‑second confirmation for a snappy UX.</p></div>
+            <div class="feature"><span class="tag">Security</span><div class="f-icon"><i class="fa-solid fa-user-shield"></i></div><h3>Hardware Wallets</h3><p>First‑class support for Ledger & Trezor.</p></div>
+            <div class="feature"><span class="tag">DeFi</span><div class="f-icon"><i class="fa-solid fa-sack-dollar"></i></div><h3>Smart Staking</h3><p>Auto‑compounding pools with boosted rewards.</p></div>
+            <div class="feature"><span class="tag">Payments</span><div class="f-icon"><i class="fa-solid fa-receipt"></i></div><h3>Merchant SDK</h3><p>Drop‑in checkout and invoicing APIs.</p></div>
+            <div class="feature"><span class="tag">Infra</span><div class="f-icon"><i class="fa-solid fa-server"></i></div><h3>Light Clients</h3><p>Trust‑minimized mobile sync for low data usage.</p></div>
+            <div class="feature"><span class="tag">Community</span><div class="f-icon"><i class="fa-solid fa-people-group"></i></div><h3>DAO‑Native</h3><p>On‑chain proposals, votes, and grants.</p></div>
+            <div class="feature"><span class="tag">Dev</span><div class="f-icon"><i class="fa-solid fa-code"></i></div><h3>CLI + SDKs</h3><p>Tooling for Rust, TypeScript, and Python.</p></div>
+            <div class="feature"><span class="tag">Scale</span><div class="f-icon"><i class="fa-solid fa-diagram-project"></i></div><h3>Sharded States</h3><p>Horizontal scaling for infinite headroom.</p></div>
+            <div class="feature"><span class="tag">UX</span><div class="f-icon"><i class="fa-solid fa-mobile"></i></div><h3>One Tap Pay</h3><p>Biometric approvals for daily spends.</p></div>
+            <div class="feature"><span class="tag">Data</span><div class="f-icon"><i class="fa-solid fa-chart-line"></i></div><h3>Indexing APIs</h3><p>Query balances, swaps, and NFTs instantly.</p></div>
+            <div class="feature"><span class="tag">NFT</span><div class="f-icon"><i class="fa-solid fa-image"></i></div><h3>Native Collections</h3><p>Zero‑royalty minting with creator splits.</p></div>
+            <div class="feature"><span class="tag">Privacy</span><div class="f-icon"><i class="fa-solid fa-user-secret"></i></div><h3>Shielded Transfers</h3><p>Selective disclosure for compliance.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== ACCORDION: TOKENOMICS ================== -->
+  <section id="tokenomics" class="container">
+    <div class="accordion" data-acc>
+      <button class="acc-head" type="button"><h2>Tokenomics</h2><i class="fa-solid fa-chevron-down"></i></button>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p class="section-sub">A transparent, long‑term aligned distribution model.</p>
+          <div class="cards">
+            <div class="card"><h3>Supply</h3><p><b>10,000,000,000 XG</b> fixed supply with scheduled unlocks.</p><div class="meter" aria-label="circulating"><span style="width:40%"></span></div><small>Circulating: 40%</small></div>
+            <div class="card"><h3>Community</h3><p>Rewards, airdrops, and growth funds.</p><div class="meter"><span style="width:35%"></span></div><small>35%</small></div>
+            <div class="card"><h3>Core Team</h3><p>4‑year vesting with 1‑year cliff.</p><div class="meter"><span style="width:15%"></span></div><small>15%</small></div>
+            <div class="card"><h3>Treasury</h3><p>Liquidity, partnerships, and grants.</p><div class="meter"><span style="width:10%"></span></div><small>10%</small></div>
+          </div>
+          <div class="cards" style="margin-top:16px">
+            <div class="card"><h3>Staking APY</h3><p>Dynamic rates based on network participation.</p><div class="meter"><span style="width:22%"></span></div><small>Current: ~22%</small></div>
+            <div class="card"><h3>Burn</h3><p>Fee‑based burn for long‑term scarcity.</p><div class="meter"><span style="width:5%"></span></div><small>Total Burned: 5%</small></div>
+            <div class="card"><h3>Validator Set</h3><p>Permissionless with slashing & delegation.</p><div class="meter"><span style="width:64%"></span></div><small>Active: 64</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== ACCORDION: ROADMAP ================== -->
+  <section id="roadmap" class="container">
+    <div class="accordion" data-acc>
+      <button class="acc-head" type="button"><h2>Roadmap</h2><i class="fa-solid fa-chevron-down"></i></button>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p class="section-sub">Clear milestones from launch to an open, thriving ecosystem.</p>
+          <div class="timeline">
+            <div class="tl-item"><div class="tl-dot"></div><div style="display:flex; align-items:center; gap:10px"><span style="font-weight:800; color:var(--primary)">Phase 1</span><span style="color:#9fb3cc">Q1 2024</span></div><p>Token launch, wallet alpha, first CEX listing.</p></div>
+            <div class="tl-item"><div class="tl-dot"></div><div style="display:flex; align-items:center; gap:10px"><span style="font-weight:800; color:var(--primary)">Phase 2</span><span style="color:#9fb3cc">Q2 2024</span></div><p>Staking live, SDKs, payment plugins for merchants.</p></div>
+            <div class="tl-item"><div class="tl-dot"></div><div style="display:flex; align-items:center; gap:10px"><span style="font-weight:800; color:var(--primary)">Phase 3</span><span style="color:#9fb3cc">Q3 2024</span></div><p>DEX launch, lending & yield protocols, grants wave 1.</p></div>
+            <div class="tl-item"><div class="tl-dot"></div><div style="display:flex; align-items:center; gap:10px"><span style="font-weight:800; color:var(--primary)">Phase 4</span><span style="color:#9fb3cc">Q4 2024</span></div><p>Mobile light client, NFT primitives, L2 bridges.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== ACCORDION: FAQ ================== -->
+  <section id="faq" class="container">
+    <div class="accordion" data-acc>
+      <button class="acc-head" type="button"><h2>FAQ</h2><i class="fa-solid fa-chevron-down"></i></button>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <details class="card" style="margin:10px 0"><summary style="cursor:pointer; font-weight:700"><i class="fa-solid fa-circle-question"></i> How fast are transactions?</summary><div style="padding-top:8px; color:#b9c5d8">Blocks finalize in under one second; UX feels instant.</div></details>
+          <details class="card" style="margin:10px 0"><summary style="cursor:pointer; font-weight:700"><i class="fa-solid fa-circle-question"></i> Is XG40 eco‑friendly?</summary><div style="padding-top:8px; color:#b9c5d8">Yes. PoS consensus uses a fraction of the energy of PoW chains.</div></details>
+          <details class="card" style="margin:10px 0"><summary style="cursor:pointer; font-weight:700"><i class="fa-solid fa-circle-question"></i> Do you support hardware wallets?</summary><div style="padding-top:8px; color:#b9c5d8">Ledger and Trezor support is built‑in via the web wallet.</div></details>
+          <details class="card" style="margin:10px 0"><summary style="cursor:pointer; font-weight:700"><i class="fa-solid fa-circle-question"></i> Can developers build dApps easily?</summary><div style="padding-top:8px; color:#b9c5d8">Full SDKs, REST & WS APIs, plus templates for Rust and TypeScript.</div></details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================== FOOTER ================== -->
+  <footer>
+    <div class="container foot">
+      <div>
+        <div class="brand"><span class="logo-coin"></span><span>XG40</span></div>
+        <p style="color:#9fb3cc">Built with love for Web3. © <span id="year"></span> XG Labs.</p>
+      </div>
+      <div style="justify-self:end">
+        <div class="socials">
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
+          <a href="#" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+          <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+<script>
+  // ===== Navbar shrink on scroll =====
+  const nav = document.querySelector('.navbar');
+  addEventListener('scroll', () => { if (scrollY > 24) nav.classList.add('nav-small'); else nav.classList.remove('nav-small'); });
+
+  // ===== Year in footer =====
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ===== Counter Up =====
+  const counters = document.querySelectorAll('.n');
+  const fmt = (n)=>{n=+n; if(n>=1e9)return '$'+(n/1e9).toFixed(2)+'B'; if(n>=1e6)return '$'+(n/1e6).toFixed(1)+'M'; if(n>=1e3) return (n/1e3).toFixed(0)+'K'; return n.toString()};
+  const obs = new IntersectionObserver((entries)=>{ entries.forEach(en=>{ if(en.isIntersecting){ const el=en.target; const end=+el.dataset.count; const dur=1200; const t0=performance.now(); const isFee=el.nextElementSibling?.textContent.includes('Avg. Fee'); const step=(t)=>{ const p=Math.min(1,(t-t0)/dur); const val=(end)*p; el.textContent=isFee? val.toFixed(3): fmt(val); if(p<1) requestAnimationFrame(step); }; requestAnimationFrame(step); obs.unobserve(el); } }); }, {threshold:.4});
+  counters.forEach(c=>obs.observe(c));
+
+  // ===== Accordions (every section hidden until click) =====
+  const accs = [...document.querySelectorAll('[data-acc]')];
+  accs.forEach(acc=>{
+    const head = acc.querySelector('.acc-head');
+    head.addEventListener('click', ()=>{ acc.classList.toggle('open'); });
+  });
+  document.getElementById('expandAll').addEventListener('click', ()=>{ accs.forEach(a=>a.classList.add('open')); });
+
+  // ===== Parallax glow for feature cards =====
+  const grid = document.getElementById('featureGrid');
+  grid?.addEventListener('mousemove', (e)=>{
+    const cards = grid.querySelectorAll('.feature');
+    cards.forEach(c=>{
+      const r=c.getBoundingClientRect(); const mx=((e.clientX-r.left)/r.width)*100; const my=((e.clientY-r.top)/r.height)*100;
+      c.style.setProperty('--mx', mx+'%'); c.style.setProperty('--my', my+'%');
+      c.style.background = `radial-gradient(600px 120px at ${mx}% ${my}%, rgba(0,255,136,.16), transparent 70%), linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02))`;
+    });
+  });
+
+  // ===== Cosmic background with Moon, Jupiter, and a giant ₿ watermark =====
+  const canvas = document.getElementById('cosmos');
+  const ctx = canvas.getContext('2d');
+  let W,H,stars=[];
+  function resize(){ W = canvas.width = innerWidth; H = canvas.height = innerHeight; initStars(); }
+  function initStars(){ stars = Array.from({length:220}, ()=>({ x:Math.random()*W, y:Math.random()*H, r:Math.random()*1.5+.2, s:Math.random()*.6+.2, z:Math.random()*.8+.3 })); }
+  function drawStars(){ for(const st of stars){ ctx.globalAlpha = .55*st.z; ctx.beginPath(); ctx.arc(st.x, st.y, st.r, 0, Math.PI*2); ctx.fillStyle = '#cfe8ff'; ctx.fill(); st.x += st.s; if(st.x>W+5) st.x=-5; } }
+  function drawPlanet(x,y,r,colors,craters=false){ const g = ctx.createRadialGradient(x-r*.3,y-r*.4,r*.2, x,y,r);
+    colors.forEach(([off,col])=>g.addColorStop(off,col)); ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
+    if(craters){ ctx.globalAlpha=.25; for(let i=0;i<8;i++){ const cx=x+(Math.random()*2-1)*r*.6; const cy=y+(Math.random()*2-1)*r*.6; const cr=r*(Math.random()*.08+.03); ctx.beginPath(); ctx.arc(cx,cy,cr,0,Math.PI*2); ctx.fillStyle='#000'; ctx.fill(); } ctx.globalAlpha=1; }
+  }
+  function drawBitcoinGlyph(){ ctx.save(); ctx.translate(W*0.78, H*0.22); const size = Math.min(W,H)*0.28; ctx.globalAlpha=.06; ctx.fillStyle='#f7931a'; ctx.font=`${size}px Sora, sans-serif`;
+    ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('₿', 0, 0); ctx.restore(); }
+  function loop(){ ctx.clearRect(0,0,W,H); drawStars();
+    // Jupiter (striped)
+    drawPlanet(W*0.18, H*0.22, Math.min(W,H)*0.14, [ [0,'#4b2d1a'], [.4,'#8a5a35'], [.7,'#c29b74'], [1,'#f0d7bf'] ]);
+    // Subtle stripes
+    ctx.globalAlpha=.15; ctx.fillStyle='#000'; for(let i=-8;i<=8;i++){ ctx.fillRect(W*0.18 - Math.min(W,H)*0.14, H*0.22 + i*8, Math.min(W,H)*0.28, 3); }
+    ctx.globalAlpha=1;
+    // Moon with craters
+    drawPlanet(W*0.86, H*0.78, Math.min(W,H)*0.10, [ [0,'#6b7280'], [.7,'#9ca3af'], [1,'#e5e7eb'] ], true);
+    // Giant Bitcoin glyph watermark
+    drawBitcoinGlyph();
+    requestAnimationFrame(loop);
+  }
+  addEventListener('resize', resize, {passive:true}); resize(); loop();
+
+  // ===== Smooth scroll for internal links =====
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', e=>{ const id=a.getAttribute('href'); if(id && id.length>1){ e.preventDefault(); document.querySelector(id)?.scrollIntoView({behavior:'smooth', block:'start'}); }});
+  });
+</script>
+</body>
+</html>
